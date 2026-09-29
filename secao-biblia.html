@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seção — Compreendendo a Bíblia</title>
+  <meta name="description" content="Estudo bíblico com perguntas e respostas.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📖</text></svg>">
+  <style>
+    .version-selector {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+    
+    .version-btn {
+      padding: 8px 20px;
+      border: 2px solid var(--border);
+      border-radius: 20px;
+      background: white;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: var(--transition);
+      color: var(--text);
+    }
+    
+    .version-btn:hover,
+    .version-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    
+    .secao-header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 40px 24px;
+      text-align: center;
+    }
+    
+    .secao-header h1 {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+    
+    .secao-header .capitulo {
+      font-size: 1rem;
+      opacity: 0.85;
+    }
+    
+    .secao-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+    
+    .pergunta-biblia {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    
+    .pergunta-biblia-header {
+      background: var(--primary);
+      color: white;
+      padding: 16px 24px;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    
+    .pergunta-biblia-body {
+      padding: 24px;
+    }
+    
+    .texto-versao {
+      background: #fef9e7;
+      border-left: 4px solid var(--secondary);
+      padding: 20px;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      margin-bottom: 20px;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text);
+    }
+    
+    .texto-versao .ref {
+      display: block;
+      margin-top: 12px;
+      font-weight: 600;
+      color: var(--secondary-dark);
+      font-size: 0.9rem;
+    }
+    
+    .resposta {
+      color: #FF0000;
+      line-height: 1.7;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .resposta p::first-letter {
+      text-transform: uppercase;
+    }
+    
+    .resposta-label {
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 24px;
+      transition: var(--transition);
+    }
+    
+    .back-btn:hover {
+      color: var(--secondary);
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-top">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">CB</div>
+        <div class="logo-text">
+          Compreendendo a Bíblia
+          <span>Estudos & Lições</span>
+        </div>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+      <nav class="nav" id="nav">
+        <a href="index.html">Início</a>
+        <a href="licoes.html">Lições</a>
+        <a href="estudos.html">Estudos</a>
+        <a href="tema-biblia.html" class="active">A Bíblia</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="app">
+    <!-- Conteúdo renderizado via JavaScript -->
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <h3>Compreendendo a Bíblia</h3>
+        <p>Site dedicado ao estudo da Palavra de Deus, com lições da Escola Sabatina e estudos bíblicos por temas.</p>
+      </div>
+      <div>
+        <h3>Navegação</h3>
+        <p><a href="index.html">Início</a></p>
+        <p><a href="licoes.html">Lições da Escola Sabatina</a></p>
+        <p><a href="estudos.html">Estudos por Tema</a></p>
+        <p><a href="tema-biblia.html">A Bíblia</a></p>
+      </div>
+      <div>
+        <h3>Versículo do Dia</h3>
+        <p>"Lâmpada para os meus pés é a tua palavra e luz para o meu caminho." — Salmos 119:105</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Compreendendo a Bíblia. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/respostas.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    let selectedVersion = 'naa';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const app = document.getElementById('app');
+      if (!app) return;
+
+      const params = new URLSearchParams(window.location.search);
+      const capituloId = params.get('capitulo') || 'capitulo-1';
+      const secaoId = params.get('secao') || '1-1';
+
+      const tema = TEMA_BIBLIA;
+      const capitulo = tema.capitulos.find(c => c.id === capituloId) || tema.capitulos[0];
+      const secao = capitulo.secoes.find(s => s.id === secaoId) || capitulo.secoes[0];
+
+      app.innerHTML = `
+        <div class="secao-header">
+          <div class="capitulo">${capitulo.titulo}</div>
+          <h1>${secao.titulo}</h1>
+        </div>
+
+        <div class="secao-content">
+          <a href="tema-biblia.html" class="back-btn">
+            ← Voltar ao Tema
+          </a>
+
+          <div class="version-selector">
+            <button class="version-btn ${selectedVersion === 'naa' ? 'active' : ''}" data-version="naa">NAA</button>
+            <button class="version-btn ${selectedVersion === 'ntlh' ? 'active' : ''}" data-version="ntlh">NTLH</button>
+            <button class="version-btn ${selectedVersion === 'nvi' ? 'active' : ''}" data-version="nvi">NVI</button>
+            <button class="version-btn ${selectedVersion === 'afc' ? 'active' : ''}" data-version="afc">AFC</button>
+          </div>
+
+          <div id="perguntas-container">
+            ${secao.perguntas.map((p, i) => `
+              <div class="pergunta-biblia">
+                <div class="pergunta-biblia-header">
+                  Pergunta ${p.numero}
+                </div>
+                <div class="pergunta-biblia-body">
+                  <p style="margin-bottom: 16px; color: var(--text);">${p.pergunta}</p>
+                  
+                  <div class="texto-versao">
+                    <span class="versiculo-texto">${p.versoes[selectedVersion] || p.texto}</span>
+                    <span class="ref">${p.versiculo} (${selectedVersion.toUpperCase()})</span>
+                  </div>
+                  
+                  <div class="resposta">
+                    <div class="resposta-label">Resposta</div>
+                    <p>${p.resposta || 'Resposta a ser adicionada.'}</p>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+
+      // Adicionar evento aos botões de versão
+      document.querySelectorAll('.version-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.version-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          selectedVersion = btn.dataset.version;
+          renderPerguntas(secao);
+        });
+      });
+    });
+
+    function renderPerguntas(secao) {
+      const container = document.getElementById('perguntas-container');
+      if (!container) return;
+
+      container.innerHTML = secao.perguntas.map((p, i) => `
+        <div class="pergunta-biblia">
+          <div class="pergunta-biblia-header">
+            Pergunta ${p.numero}
+          </div>
+          <div class="pergunta-biblia-body">
+            <p style="margin-bottom: 16px; color: var(--text);">${p.pergunta}</p>
+            
+            <div class="texto-versao">
+              <span class="versiculo-texto">${p.versoes[selectedVersion] || p.texto}</span>
+              <span class="ref">${p.versiculo} (${selectedVersion.toUpperCase()})</span>
+            </div>
+            
+            <div class="resposta">
+              <div class="resposta-label">Resposta</div>
+              <p>${p.resposta || 'Resposta a ser adicionada.'}</p>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+  </script>
+</body>
+</html>
