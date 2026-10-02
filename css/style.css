@@ -1970,7 +1970,7 @@ body {
 /* Seletor de versão FICA FIXO no mobile, logo abaixo do menu */
 .versao-global {
   position: sticky;
-  top: 74px;              /* gruda abaixo do header */
+  top: 126px;              /* gruda abaixo do header */
   z-index: 950;           /* acima do conteúdo, abaixo do header */
   margin-bottom: 10px;
 }
