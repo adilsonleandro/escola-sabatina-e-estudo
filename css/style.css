@@ -1320,3 +1320,572 @@ body {
     font-size: 0.9rem;
   }
 }
+
+/* ============ TEMA BÍBLIA ============ */
+.tema-container {
+  display: flex;
+  min-height: calc(100vh - 200px);
+}
+
+.tema-sidebar {
+  width: 280px;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border);
+  position: sticky;
+  top: 74px;
+  height: calc(100vh - 74px);
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.tema-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--primary);
+  color: white;
+}
+
+.tema-sidebar-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.tema-sidebar-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.tema-sidebar-nav {
+  padding: 12px 0;
+}
+
+.tema-sidebar-nav a {
+  display: block;
+  padding: 10px 20px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  border-left: 3px solid transparent;
+  transition: var(--transition);
+}
+
+.tema-sidebar-nav a:hover {
+  background: #f0f7ff;
+  border-left-color: var(--primary-light);
+}
+
+.tema-sidebar-nav a.active {
+  background: #e8f4fd;
+  border-left-color: var(--primary);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.tema-main {
+  flex: 1;
+  padding: 0;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .tema-container {
+    flex-direction: column;
+  }
+
+  .tema-sidebar {
+    width: 100%;
+    position: relative;
+    top: 0;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tema-sidebar-toggle {
+    display: block;
+  }
+
+  .tema-sidebar-nav {
+    display: none;
+    padding: 8px 0;
+  }
+
+  .tema-sidebar-nav.open {
+    display: block;
+  }
+
+  .tema-sidebar-nav a {
+    padding: 12px 20px;
+  }
+}
+.capitulo-titulo {
+  margin-bottom: 24px;
+}
+
+.capitulo-titulo h2 {
+  color: var(--primary);
+  font-size: 1.5rem;
+  padding-bottom: 12px;
+  border-bottom: 3px solid var(--secondary);
+}
+
+.secao-titulo {
+  margin-bottom: 24px;
+}
+
+.secao-titulo h3 {
+  color: var(--primary-dark);
+  font-size: 1.2rem;
+  padding: 12px 16px;
+  background: #e8f4fd;
+  border-radius: var(--radius);
+  border-left: 4px solid var(--primary);
+}
+
+/* Seletor global de versão - FIXO NO TOPO */
+.versao-global {
+  position: sticky;
+  top: 74px;
+  z-index: 100;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow);
+}
+
+.versao-global-titulo {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: white;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.versao-global-tabs {
+  display: flex;
+  background: #f8f9fa;
+  border-bottom: 1px solid var(--border);
+}
+
+.versao-global-tabs .versao-tab {
+  flex: 1;
+  padding: 14px 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-light);
+  transition: var(--transition);
+}
+
+.versao-global-tabs .versao-tab:hover {
+  background: #e8f4fd;
+  color: var(--primary);
+}
+
+.versao-global-tabs .versao-tab.active {
+  background: var(--primary);
+  color: white;
+}
+
+/* Perguntas */
+.biblia-pergunta {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+
+.pergunta-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background: #f8f9fa;
+  border-bottom: 1px solid var(--border);
+}
+
+.pergunta-numero {
+  width: 36px;
+  height: 36px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.pergunta-texto {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+  flex: 1;
+}
+
+.pergunta-content {
+  padding: 20px 24px;
+}
+
+.versiculo-biblia {
+  background: #fef9e7;
+  border-left: 4px solid var(--secondary);
+  padding: 16px;
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+}
+
+.versiculo-biblia strong {
+  color: var(--secondary-dark);
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.versiculo-biblia p {
+  font-style: italic;
+  line-height: 1.8;
+  color: var(--text);
+}
+
+/* Resposta escondida */
+.resposta-biblia {
+  background: #f8f9fa;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.btn-resposta {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 20px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-resposta:hover {
+  background: var(--primary-dark);
+}
+
+.btn-resposta .icone-resposta {
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: var(--transition);
+}
+
+.btn-resposta.aberta .icone-resposta {
+  transform: rotate(45deg);
+}
+
+.resposta-conteudo {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  background: #d4edda;
+  border-left: 4px solid var(--accent);
+}
+
+.resposta-conteudo.aberta {
+  max-height: 500px;
+  padding: 16px;
+}
+
+.resposta-conteudo strong {
+  color: var(--accent);
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Card de estudo na página de estudos */
+.estudo-card {
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+/* Perguntas na página de detalhe */
+.pergunta-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.pergunta-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  background: #f8f9fa;
+  border-bottom: 1px solid var(--border);
+}
+
+.pergunta-numero {
+  width: 36px;
+  height: 36px;
+  background: var(--primary);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.pergunta-texto {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+  flex: 1;
+}
+
+.pergunta-content {
+  padding: 20px 24px;
+}
+
+/* Resposta escondida */
+.resposta-biblia {
+  background: #f8f9fa;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.btn-resposta {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 20px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-resposta:hover {
+  background: var(--primary-dark);
+}
+
+.btn-resposta .icone-resposta {
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: var(--transition);
+}
+
+.btn-resposta.aberta .icone-resposta {
+  transform: rotate(45deg);
+}
+
+.resposta-conteudo {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  background: #d4edda;
+  border-left: 4px solid var(--accent);
+}
+
+.resposta-conteudo.aberta {
+  max-height: 500px;
+  padding: 16px;
+}
+
+.resposta-conteudo strong {
+  color: var(--accent);
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.estudo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Botão voltar ao topo */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+  z-index: 999;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+  .back-to-top {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+    bottom: 20px;
+    right: 20px;
+  }
+
+  .versao-global-tabs .versao-tab {
+    padding: 12px 16px;
+    font-size: 0.85rem;
+  }
+
+  .pergunta-header {
+    padding: 16px 20px;
+  }
+
+  .pergunta-body {
+    padding: 16px 20px;
+  }
+}
+
+
+/* ===== Menu lateral em acordeão (capítulos) — novo visual ===== */
+.tema-sidebar {
+  width: 280px;
+  background: linear-gradient(180deg, #f4f8fb 0%, #e9f1f8 100%);
+  border-right: 1px solid #d3e0ea;
+  position: sticky;
+  top: 74px;
+  height: calc(100vh - 74px);
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+.tema-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  color: #fff;
+}
+.tema-sidebar-header h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.tema-capitulo-btn {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: 12px 16px;
+  margin: 2px 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-left: 3px solid transparent;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+.tema-capitulo-btn:hover { background: rgba(26, 82, 118, 0.08); }
+.tema-capitulo.open > .tema-capitulo-btn { color: var(--primary); }
+.tema-capitulo-seta {
+  display: inline-block;
+  width: 14px;
+  color: var(--secondary);
+  flex-shrink: 0;
+}
+.tema-secoes {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.tema-secoes.aberto { max-height: 2000px; }
+.tema-secao-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: 9px 12px 9px 34px;
+  margin: 1px 0;
+  font-size: 0.9rem;
+  color: var(--text);
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  border-radius: 0 6px 6px 0;
+  line-height: 1.35;
+  white-space: normal;
+  transition: all 0.2s ease;
+}
+.tema-secao-btn:hover {
+  background: rgba(26, 82, 118, 0.10);
+  color: var(--primary);
+}
+.tema-secao-btn.active {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  border-left-color: var(--secondary);
+}
+.tema-em-breve {
+  padding: 14px 18px;
+  margin: 10px 12px;
+  font-size: 0.85rem;
+  color: var(--primary-dark);
+  background: #e8f4fd;
+  border: 1px dashed var(--primary-light);
+  border-radius: 8px;
+  line-height: 1.5;
+}
+.tema-secoes.aberto { max-height: 600px; }
