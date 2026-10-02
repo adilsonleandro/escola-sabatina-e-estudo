@@ -802,3 +802,60 @@ document.addEventListener('DOMContentLoaded', () => {
     renderHomePage();
   }
 });
+
+// ===== TEMA BÍBLIA — Gaveta lateral no mobile =====
+(function () {
+  var sidebar = document.querySelector('.tema-sidebar');
+  if (!sidebar) return;
+
+  // Fundo escuro (criado automaticamente se não existir)
+  var overlay = document.querySelector('.tema-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.className = 'tema-overlay';
+    document.body.appendChild(overlay);
+  }
+
+  // Botão fixo "☰ Capítulos" (criado automaticamente)
+  var btnAbrir = document.querySelector('.tema-abrir-gaveta');
+  if (!btnAbrir) {
+    btnAbrir = document.createElement('button');
+    btnAbrir.className = 'tema-abrir-gaveta';
+    btnAbrir.type = 'button';
+    btnAbrir.textContent = '☰ Capítulos';
+    var main = document.querySelector('.tema-main');
+    if (main) main.insertBefore(btnAbrir, main.firstChild);
+  }
+
+  function abrir() {
+    sidebar.classList.add('aberta');
+    overlay.classList.add('ativa');
+    document.body.style.overflow = 'hidden';
+  }
+  function fechar() {
+    sidebar.classList.remove('aberta');
+    overlay.classList.remove('ativa');
+    document.body.style.overflow = '';
+  }
+
+  btnAbrir.addEventListener('click', abrir);
+
+  // O X do cabeçalho da sidebar fecha a gaveta
+  var toggle = sidebar.querySelector('.tema-sidebar-toggle');
+  if (toggle) toggle.addEventListener('click', fechar);
+
+  // Clicar no fundo escuro fecha
+  overlay.addEventListener('click', fechar);
+
+  // Ao clicar numa seção, fecha a gaveta no mobile
+  sidebar.querySelectorAll('.tema-secao-btn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (window.innerWidth <= 768) fechar();
+    });
+  });
+
+  // Fecha a gaveta se a tela for redimensionada para desktop
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 768) fechar();
+  });
+})();
