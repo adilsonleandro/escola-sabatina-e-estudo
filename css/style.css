@@ -1889,3 +1889,120 @@ body {
   line-height: 1.5;
 }
 .tema-secoes.aberto { max-height: 600px; }
+
+/* ============================================================
+   TEMA BÍBLIA — MOBILE: BARRA LATERAL EM GAVETA (DRAWER)
+   ============================================================ */
+.tema-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1040;
+}
+.tema-overlay.ativa {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  /* Container: volta a empilhar, sem altura mínima forçada */
+  .tema-container {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  /* Sidebar vira gaveta fixa escondida fora da tela */
+  .tema-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 84%;
+    max-width: 320px;
+    height: 100vh;
+    z-index: 1050;
+    transform: translateX(-105%);
+    transition: transform 0.3s ease;
+    border-right: 1px solid #d3e0ea;
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.25);
+    border-bottom: none;
+    overflow-y: auto;
+  }
+  .tema-sidebar.aberta {
+    transform: translateX(0);
+  }
+
+  /* A navegação fica SEMPRE visível dentro da gaveta
+     (quem abre/fecha agora é a gaveta inteira) */
+  .tema-sidebar-nav {
+    display: block !important;
+  }
+  .tema-secoes.aberto {
+    max-height: 2000px;
+  }
+
+  /* Botão fixo "☰ Capítulos" — gruda logo abaixo do header */
+  .tema-abrir-gaveta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    position: sticky;
+    top: 74px;
+    z-index: 900;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    padding: 10px 18px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+  }
+
+  /* Conteúdo ocupa a tela toda, com respiro */
+  .tema-main {
+    padding: 0 16px 48px;
+    width: 100%;
+  }
+
+  /* Seletor de versão deixa de ser fixo no mobile
+     (senão briga com o botão Capítulos) */
+  .versao-global {
+    position: static;
+  }
+
+  /* Textos: tamanho confortável e espaçamento melhor */
+  .capitulo-titulo h2 {
+    font-size: 1.3rem;
+  }
+  .secao-titulo h3 {
+    font-size: 1.05rem;
+    padding: 10px 14px;
+  }
+  .pergunta-header {
+    padding: 14px 16px;
+    gap: 12px;
+  }
+  .pergunta-texto {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .pergunta-content {
+    padding: 16px;
+  }
+  .versiculo-biblia {
+    padding: 14px;
+  }
+  .versiculo-biblia p {
+    font-size: 0.95rem;
+  }
+  .resposta-conteudo.aberta {
+    padding: 14px;
+  }
+  .btn-resposta {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+  }
+}
