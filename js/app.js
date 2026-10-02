@@ -803,12 +803,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// ===== TEMA BÍBLIA — Gaveta lateral no mobile =====
+// ===== TEMA BÍBLIA — Gaveta lateral no mobile (versão robusta) =====
 (function () {
-  var sidebar = document.querySelector('.tema-sidebar');
-  if (!sidebar) return;
-
-  // Fundo escuro (criado automaticamente se não existir)
   var overlay = document.querySelector('.tema-overlay');
   if (!overlay) {
     overlay = document.createElement('div');
@@ -816,46 +812,86 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(overlay);
   }
 
-  // Botão fixo "☰ Capítulos" (criado automaticamente)
-  var btnAbrir = document.querySelector('.tema-abrir-gaveta');
-  if (!btnAbrir) {
-    btnAbrir = document.createElement('button');
-    btnAbrir.className = 'tema-abrir-gaveta';
-    btnAbrir.type = 'button';
-    btnAbrir.textContent = '☰ Capítulos';
-    var main = document.querySelector('.tema-main');
-    if (main) main.insertBefore(btnAbrir, main.firstChild);
-  }
-
   function abrir() {
+    var sidebar = document.querySelector('.tema-sidebar');
+    if (!sidebar) return;
     sidebar.classList.add('aberta');
     overlay.classList.add('ativa');
     document.body.style.overflow = 'hidden';
   }
   function fechar() {
-    sidebar.classList.remove('aberta');
+    var sidebar = document.querySelector('.tema-sidebar');
+    if (sidebar) sidebar.classList.remove('aberta');
     overlay.classList.remove('ativa');
     document.body.style.overflow = '';
   }
 
-  btnAbrir.addEventListener('click', abrir);
+  // Delegação de eventos: funciona mesmo com itens criados depois pelo app.js
+  document.addEventListener('click', function (e) {
+    var alvo = e.target;
 
-  // O X do cabeçalho da sidebar fecha a gaveta
-  var toggle = sidebar.querySelector('.tema-sidebar-toggle');
-  if (toggle) toggle.addEventListener('click', fechar);
+    // Botão "☰ Capítulos"
+    if (alvo.closest('.tema-abrir-gaveta')) {
+      e.preventDefault();
+      abrir();
+      return;
+    }
 
-  // Clicar no fundo escuro fecha
-  overlay.addEventListener('click', fechar);
+    // X do cabeçalho da sidebar
+    if (alvo.closest('.tema-sidebar-toggle')) {
+      e.preventDefault();
+      fechar();
+      return;
+    }
 
-  // Ao clicar numa seção, fecha a gaveta no mobile
-  sidebar.querySelectorAll('.tema-secao-btn').forEach(function (b) {
-    b.addEventListener('click', function () {
+    // Fundo escuro
+    if (alvo.closest('.tema-overlay')) {
+      fechar();
+      return;
+    }
+
+    // Clicou numa seção (ex.: 1.2, 1.3, 2.2) -> fecha a gaveta no mobile
+    if (alvo.closest('.tema-secao-btn')) {
       if (window.innerWidth <= 768) fechar();
-    });
+      return;
+    }
+
+    // Clicou num capítulo -> deixa o acordeão abrir/fechar normalmente
+    if (alvo.closest('.tema-capitulo-btn')) {
+      return;
+    }
   });
+
+  // Cria o botão "☰ Capítulos" assim que a sidebar existir
+  function criarBotao() {
+    if (document.querySelector('.tema-abrir-gaveta')) return;
+    var main = document.querySelector('.tema-main');
+    if (!main) return;
+    var btn = document.createElement('button');
+    btn.className = 'tema-abrir-gaveta';
+    btn.type = 'button';
+    btn.textContent = '☰ Capítulos';
+    main.insertBefore(btn, main.firstChild);
+  }
+
+  // Se a sidebar já existe, cria o botão agora
+  if (document.querySelector('.tema-sidebar')) {
+    criarBotao();
+  } else {
+    // Senão, espera o app.js renderizar (MutationObserver)
+    var obs = new MutationObserver(function () {
+      if (document.querySelector('.tema-sidebar')) {
+        criarBotao();
+        obs.disconnect();
+      }
+    });
+    obs.observe(document.body, { childList: true, subtree: true });
+  }
 
   // Fecha a gaveta se a tela for redimensionada para desktop
   window.addEventListener('resize', function () {
     if (window.innerWidth > 768) fechar();
   });
 })();
+
+
